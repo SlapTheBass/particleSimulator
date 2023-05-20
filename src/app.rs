@@ -1,13 +1,37 @@
 use raylib::prelude::*;
 
-pub fn Run() {
-    let (mut rl, thread) = raylib::init()
-        .size(640, 480)
-        .title("Particle Simulator")
-        .build();
+pub struct App {
+    m_rayLibHandle: RaylibHandle,
+    m_thread: RaylibThread,
+}
 
-    while !rl.window_should_close() {
-        let mut d = rl.begin_drawing(&thread);
+impl App {
+    pub fn new() -> App {
+        let (mut raylibHandle, thread) = raylib::init()
+            .size(640, 480)
+            .title("Particle Simulator")
+            .build();
+
+        App {
+            m_rayLibHandle: raylibHandle,
+            m_thread: thread,
+        }
+    }
+
+    pub fn run(&mut self) {
+        while !self.m_rayLibHandle.window_should_close() {
+            self.update();
+            self.draw();
+        }
+    }
+
+    fn update(&mut self) {
+
+    }
+
+    fn draw(&mut self) {
+        let mut d = self.m_rayLibHandle.begin_drawing(&self.m_thread);
+        d.clear_background(Color::RAYWHITE);
 
         d.clear_background(Color::WHITE);
         d.draw_text("Particle Simulator", 100, 100, 50, Color::BLACK);

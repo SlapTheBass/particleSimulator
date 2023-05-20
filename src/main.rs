@@ -1,5 +1,7 @@
 mod app;
+use app::App;
 
 fn main() {
-    app::Run();
+    let mut app = App::new();
+    app.run();
 }
